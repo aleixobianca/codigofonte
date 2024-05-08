@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public abstract class Funcionario extends Pessoa {
+public class Funcionario extends Pessoa {
     private Integer idFuncionario;
     private LocalDate dataAdmissao;
     private Departamento departamento;
