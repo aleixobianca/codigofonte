@@ -8,17 +8,17 @@ public class Funcionario extends Pessoa {
     private String cargo;
     private static ArrayList<Integer> listaIdFuncionarios = new ArrayList<>();
 
-    public Funcionario(String cpf, String nome, LocalDate dataNascimento, ArrayList<String> telefones,
-                       int numero, String rua, String cep,
-                       Integer idFuncionario, LocalDate dataAdmissao, Departamento departamento, String cargo) {
-        super(cpf, nome, dataNascimento, telefones, numero, rua, cep);
+    public Funcionario(String cpf, String nome, LocalDate dataNascimento, String telefone,
+            int numero, String rua, String cep,
+            Integer idFuncionario, LocalDate dataAdmissao, Departamento departamento, String cargo) {
+        super(cpf, nome, dataNascimento, telefone, numero, rua, cep);
         this.setIdFuncionario(idFuncionario);
         this.dataAdmissao = dataAdmissao;
         setDepartamento(departamento);
         this.cargo = cargo;
     }
 
-    public long getIdFuncionario() {
+    public Integer getIdFuncionario() {
         return this.idFuncionario;
     }
 
@@ -48,6 +48,7 @@ public class Funcionario extends Pessoa {
     public void setDataAdmissao(LocalDate novaData) {
         this.dataAdmissao = novaData;
     }
+
     public String getCargo() {
         return this.cargo;
     }
