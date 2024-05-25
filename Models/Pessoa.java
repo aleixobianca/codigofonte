@@ -10,6 +10,9 @@ public class Pessoa {
     private String telefone;
     private Endereco endereco;
 
+    public Pessoa() {
+    }
+
     public Pessoa(String cpf, String nome, LocalDate dataNascimento, String telefone, int numero,
             String rua, String cep) {
         this.setCPF(cpf);

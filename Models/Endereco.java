@@ -3,16 +3,20 @@ public class Endereco {
     private String rua;
     private String cep;
 
+    public Endereco() {
+    }
+
     public Endereco(int numero, String rua, String cep) {
         this.numero = numero;
         this.rua = rua;
         this.cep = cep;
     }
-    public int getNumero(){
+
+    public int getNumero() {
         return numero;
     }
 
-    public void setNumero(int novoNumero){
+    public void setNumero(int novoNumero) {
         this.numero = novoNumero;
     }
 
@@ -24,7 +28,7 @@ public class Endereco {
         this.rua = novaRua;
     }
 
-    public String getCep(){
+    public String getCep() {
         return this.cep;
     }
 

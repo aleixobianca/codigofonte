@@ -8,6 +8,9 @@ public class Funcionario extends Pessoa {
     private String cargo;
     private static ArrayList<Integer> listaIdFuncionarios = new ArrayList<>();
 
+    public Funcionario() {
+    }
+
     public Funcionario(String cpf, String nome, LocalDate dataNascimento, String telefone,
             int numero, String rua, String cep,
             Integer idFuncionario, LocalDate dataAdmissao, Departamento departamento, String cargo) {
