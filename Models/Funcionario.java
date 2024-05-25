@@ -2,18 +2,17 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Funcionario extends Pessoa {
-    private Integer idFuncionario;
+    private int idFuncionario;
     private LocalDate dataAdmissao;
     private Departamento departamento;
     private String cargo;
-    private static ArrayList<Integer> listaIdFuncionarios = new ArrayList<>();
 
     public Funcionario() {
     }
 
     public Funcionario(String cpf, String nome, LocalDate dataNascimento, String telefone,
             int numero, String rua, String cep,
-            Integer idFuncionario, LocalDate dataAdmissao, Departamento departamento, String cargo) {
+            int idFuncionario, LocalDate dataAdmissao, Departamento departamento, String cargo) {
         super(cpf, nome, dataNascimento, telefone, numero, rua, cep);
         this.setIdFuncionario(idFuncionario);
         this.dataAdmissao = dataAdmissao;
@@ -25,13 +24,9 @@ public class Funcionario extends Pessoa {
         return this.idFuncionario;
     }
 
-    public void setIdFuncionario(Integer novaId) {
-        if (listaIdFuncionarios.contains(novaId)) {
-            System.out.println("Esta idFuncionario já existe. Tente novamente com uma id diferente.");
-        } else {
-            this.idFuncionario = novaId;
-            listaIdFuncionarios.add(novaId);
-        }
+    public void setIdFuncionario(int novaId) {
+        this.idFuncionario = novaId;
+
     }
 
     public String getNomeDepartamento() {
