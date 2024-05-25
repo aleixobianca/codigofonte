@@ -8,11 +8,12 @@ public class Endereco {
         this.rua = rua;
         this.cep = cep;
     }
-    public int getNumero(){
+
+    public int getNumero() {
         return numero;
     }
 
-    public void setNumero(int novoNumero){
+    public void setNumero(int novoNumero) {
         this.numero = novoNumero;
     }
 
@@ -24,7 +25,7 @@ public class Endereco {
         this.rua = novaRua;
     }
 
-    public String getCep(){
+    public String getCep() {
         return this.cep;
     }
 
