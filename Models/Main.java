@@ -79,7 +79,7 @@ public class Main {
 
         // obtendo os dados do novo funcionário que será cadastrado
 
-        // Nome
+        // Nome -------------------
         System.out.println(
                 "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o nome do funcionário a ser cadastrado: ");
 
@@ -90,7 +90,7 @@ public class Main {
             novoFuncionario.setNome(aux);
         }
 
-        // data de nascimento
+        // data de nascimento--------------------
         System.out.println(
                 "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme a data de nascimento do funcionário (AAAA-MM-DD): ");
 
@@ -100,9 +100,10 @@ public class Main {
             System.out.println(
                     "Opção Inválida! Caso deseje retornar ao menu inicial, digite SAIR.\n Informe  data de nascimento do funcionário (AAAA-MM-DD): ");
         }
-        String dataNascimento = scanner.next("[0-9]{4}-[0-9]{2}-[0-9]{2}");
+        String dataNascimentoString = scanner.next("[0-9]{4}-[0-9]{2}-[0-9]{2}");
+        novoFuncionario.setDataNascimento(formatarData(dataNascimentoString));
 
-        // telefone
+        // telefone------------------
         System.out.println(
                 "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o telefone do funcionário (XX)XXXXXXXXX: ");
 
@@ -112,21 +113,9 @@ public class Main {
             System.out.println(
                     "Opção Inválida! Caso deseje retornar ao menu inicial, digite SAIR.\n Informe o telefone do funcionário [(XX)XXXXXXXXX]: ");
         }
-        String telefone = scanner.next("([0-9]{2})[0-9]*");
+        novoFuncionario.setTelefone(scanner.next("([0-9]{2})[0-9]*"));
 
-        // id do funcionario
-        System.out.println(
-                "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o número de identificação do funcionário a ser cadastrado: ");
-
-        while (!scanner.hasNextInt()) {
-            if (scanner.next().toUpperCase() == "SAIR")
-                return;
-            System.out.println(
-                    "Opção Inválida! Caso deseje retornar ao menu inicial, digite SAIR.\n Informe o número de identificação do funcionário a ser cadastrado: ");
-        }
-        int idFuncionario = scanner.nextInt();
-
-        // data de admissão
+        // data de admissão ------------------------
         System.out.println(
                 "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme a data de admissao do funcionário (AAAA-MM-DD): ");
 
@@ -137,37 +126,60 @@ public class Main {
                     "Opção Inválida! Caso deseje retornar ao menu inicial, digite SAIR.\n Informe data de admissao do funcionário (AAAA-MM-DD): ");
         }
         String dataAdmissaoString = scanner.next("[0-9]{4}-[0-9]{2}-[0-9]{2}");
+        novoFuncionario.setDataAdmissao(formatarData(dataAdmissaoString));
+
+        // Departamento ------------------
+        System.out.println(
+                "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o Departamento do funcionário: ");
+
+        while (!scanner.hasNextLine()) {
+            if (scanner.next().toUpperCase() == "SAIR")
+                return;
+            System.out.println(
+                    "Opção Inválida! Caso deseje retornar ao menu inicial, digite SAIR.\n Informe o Departamento do funcionário: ");
+        }
+        String nomeDepartamento = scanner.nextLine();
+
+        // cargo ------------------------------
+        System.out.println(
+                "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o cargo do funcionário: ");
+
+        while (!scanner.hasNextLine()) {
+            if (scanner.next().toUpperCase() == "SAIR")
+                return;
+            System.out.println(
+                    "Opção Inválida! Caso deseje retornar ao menu inicial, digite SAIR.\n Informe o cargo do funcionário: ");
+        }
+        novoFuncionario.setCargo(scanner.nextLine());
 
         // ------------------------------------------------------------------------------
 
-        // System.out.println("\n Informe o número de identificação do funcionário: ");
+        DbContext database = new DbContext();
 
-        // Scanner scanner = new Scanner(System.in);
+        try {
+            database.conectarBanco();
 
-        // if (scanner.hasNext()) {
+            boolean statusQuery = database
+                    .executarUpdateSql(
+                            "INSERT INTO public.funcionario(nome, dataNascimento, telefone, dataAdmissao, departamento, cargo) VALUES ("
+                                    + novoFuncionario.getNome() + ", "
+                                    + dataNascimentoString + ", "
+                                    + novoFuncionario.getTelefone() + ", "
+                                    + dataAdmissaoString + ", "
+                                    + nomeDepartamento + ", "
+                                    + novoFuncionario.getCargo()
+                                    + ");");
 
-        // String idFuncionario = scanner.next();
+            if (statusQuery) {
+                mensagemStatus("Novo funcionario cadastrado com sucesso !");
+            }
 
-        // DbContext database = new DbContext();
+            database.desconectarBanco();
 
-        // try {
-        // database.conectarBanco();
+        } catch (Exception e) {
+        }
 
-        // boolean statusQuery = database
-        // .executarUpdateSql("INSERT INTO public.funcionario(nome) VALUES ('" +
-        // nomeAnimal + "')");
-
-        // if (statusQuery) {
-        // mensagemStatus("Novo animal cadastrado com sucesso !");
-        // }
-
-        // database.desconectarBanco();
-
-        // } catch (Exception e) {
-        // }
-
-        // inicio();
-        // }
+        inicio();
 
     }
 
@@ -230,41 +242,134 @@ public class Main {
 
     public static void atualizarFuncionario() {
 
-        System.out.print("\n Informe o ID do animal a ser atualizado: ");
-
         Scanner scanner = new Scanner(System.in);
 
-        if (scanner.hasNextInt()) {
+        System.out.print("\n Informe o ID do funcionário a ser atualizado: ");
 
-            int idAnimal = scanner.nextInt();
-            String novoNomeAnimal = "";
+        while (!scanner.hasNextInt()) {
+            if (scanner.next().toUpperCase() == "SAIR")
+                return;
+            System.out.println(
+                    "Opção Inválida! Caso deseje retornar ao menu inicial, digite SAIR.\n Informe  o ID do funcionário: ");
+        }
+        int idFuncionario = scanner.nextInt();
 
-            System.out.print("\n Informe o novo nome do animal a ser atualizado: ");
+        Funcionario novoFuncionario = new Funcionario();
+        novoFuncionario.setIdFuncionario(idFuncionario);
 
-            if (scanner.hasNext()) {
+        // obtendo os dados atualizados do funcionário que será cadastrado
 
-                novoNomeAnimal = scanner.next();
+        // Nome -------------------
+        System.out.println(
+                "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o novo nome do funcionário: ");
 
-                DbContext database = new DbContext();
+        if (scanner.hasNextLine()) {
+            String aux = scanner.nextLine();
+            if (aux.toUpperCase() == "SAIR")
+                return;
+            novoFuncionario.setNome(aux);
+        }
 
-                try {
-                    database.conectarBanco();
+        // data de nascimento--------------------
+        System.out.println(
+                "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme a data de nascimento do funcionário (AAAA-MM-DD): ");
 
-                    boolean statusQuery = database.executarUpdateSql(
-                            "UPDATE public.animais SET nome = '" + novoNomeAnimal + "' WHERE id = " + idAnimal);
+        while (!scanner.hasNext("[0-9]{4}-[0-9]{2}-[0-9]{2}")) {
+            if (scanner.next().toUpperCase() == "SAIR")
+                return;
+            System.out.println(
+                    "Opção Inválida! Caso deseje retornar ao menu inicial, digite SAIR.\n Informe  data de nascimento do funcionário (AAAA-MM-DD): ");
+        }
+        String dataNascimentoString = scanner.next("[0-9]{4}-[0-9]{2}-[0-9]{2}");
+        novoFuncionario.setDataNascimento(formatarData(dataNascimentoString));
 
-                    if (statusQuery) {
-                        mensagemStatus("Animal atualizado com sucesso !");
-                    }
+        // telefone------------------
+        System.out.println(
+                "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o telefone do funcionário (XX)XXXXXXXXX: ");
 
-                    database.desconectarBanco();
+        while (!scanner.hasNext("([0-9]{2})[0-9]*")) {
+            if (scanner.next().toUpperCase() == "SAIR")
+                return;
+            System.out.println(
+                    "Opção Inválida! Caso deseje retornar ao menu inicial, digite SAIR.\n Informe o telefone do funcionário [(XX)XXXXXXXXX]: ");
+        }
+        novoFuncionario.setTelefone(scanner.next("([0-9]{2})[0-9]*"));
 
-                } catch (Exception e) {
-                }
+        // data de admissão ------------------------
+        System.out.println(
+                "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme a data de admissao do funcionário (AAAA-MM-DD): ");
+
+        while (!scanner.hasNext("[0-9]{4}-[0-9]{2}-[0-9]{2}")) {
+            if (scanner.next().toUpperCase() == "SAIR")
+                return;
+            System.out.println(
+                    "Opção Inválida! Caso deseje retornar ao menu inicial, digite SAIR.\n Informe data de admissao do funcionário (AAAA-MM-DD): ");
+        }
+        String dataAdmissaoString = scanner.next("[0-9]{4}-[0-9]{2}-[0-9]{2}");
+        novoFuncionario.setDataAdmissao(formatarData(dataAdmissaoString));
+
+        // Departamento ------------------
+        System.out.println(
+                "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o Departamento do funcionário: ");
+
+        while (!scanner.hasNextLine()) {
+            if (scanner.next().toUpperCase() == "SAIR")
+                return;
+            System.out.println(
+                    "Opção Inválida! Caso deseje retornar ao menu inicial, digite SAIR.\n Informe o Departamento do funcionário: ");
+        }
+        String nomeDepartamento = scanner.nextLine();
+
+        // cargo ------------------------------
+        System.out.println(
+                "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o cargo do funcionário: ");
+
+        while (!scanner.hasNextLine()) {
+            if (scanner.next().toUpperCase() == "SAIR")
+                return;
+            System.out.println(
+                    "Opção Inválida! Caso deseje retornar ao menu inicial, digite SAIR.\n Informe o cargo do funcionário: ");
+        }
+        novoFuncionario.setCargo(scanner.nextLine());
+
+        // ------------------------------------------------------------------------------
+
+        // if (scanner.hasNextInt()) {
+
+        // int idAnimal = scanner.nextInt();
+        // String novoNomeAnimal = "";
+
+        // System.out.print("\n Informe o novo nome do animal a ser atualizado: ");
+
+        // if (scanner.hasNext()) {
+
+        // novoNomeAnimal = scanner.next();
+
+        DbContext database = new DbContext();
+
+        try {
+            database.conectarBanco();
+
+            boolean statusQuery = database.executarUpdateSql(
+                    "UPDATE public.funcionario SET "
+                            + "nome = " + novoFuncionario.getNome()
+                            + ", dataNascimento = " + dataNascimentoString
+                            + ", telefone = " + novoFuncionario.getTelefone()
+                            + ", dataAdmissao = " + dataAdmissaoString
+                            + ", departamento = " + nomeDepartamento
+                            + ", cargo = " + novoFuncionario.getCargo()
+                            + " WHERE id = " + novoFuncionario.getIdFuncionario() + ";");
+
+            if (statusQuery) {
+                mensagemStatus("Animal atualizado com sucesso !");
             }
 
-            inicio();
+            database.desconectarBanco();
+
+        } catch (Exception e) {
         }
+
+        inicio();
 
     }
 
