@@ -1,6 +1,5 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.sql.ResultSet;
 import java.util.Scanner;
 import Data.DbContext;
@@ -383,7 +382,7 @@ public class Main {
     }
 
     public static LocalDate formatarData(String data) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         // Convertendo a string para um objeto LocalDate
         LocalDate dataObjeto = LocalDate.parse(data, formatter);
 
