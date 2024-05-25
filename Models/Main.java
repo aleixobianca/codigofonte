@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.sql.ResultSet;
 import java.util.Scanner;
@@ -74,19 +75,9 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
+        Funcionario novoFuncionario = new Funcionario();
+
         // obtendo os dados do novo funcionário que será cadastrado
-
-        // CPF
-        System.out.println(
-                "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o CPF do funcionário a ser cadastrado (somente números): ");
-
-        while (!scanner.hasNext("[0-9]*")) {
-            if (scanner.next().toUpperCase() == "SAIR")
-                return;
-            System.out.println(
-                    "Opção Inválida! Caso deseje retornar ao menu inicial, digite SAIR.\n Informe o CPF do funcionário a ser cadastrado (somente números): ");
-        }
-        String cpfFuncionario = scanner.next("[0-9]*");
 
         // Nome
         System.out.println(
@@ -96,7 +87,7 @@ public class Main {
             String aux = scanner.nextLine();
             if (aux.toUpperCase() == "SAIR")
                 return;
-            String nome = aux;
+            novoFuncionario.setNome(aux);
         }
 
         // data de nascimento
@@ -109,7 +100,9 @@ public class Main {
             System.out.println(
                     "Opção Inválida! Caso deseje retornar ao menu inicial, digite SAIR.\n Informe  data de nascimento do funcionário (AAAA-MM-DD): ");
         }
-        String dataNascimentoString = scanner.next("[0-9]{4}-[0-9]{2}-[0-9]{2}");
+        String dataNascimento = scanner.next("[0-9]{4}-[0-9]{2}-[0-9]{2}");
+        
+        novoFuncionario.setDataNascimento()
 
         // telefone
         System.out.println(
@@ -281,5 +274,13 @@ public class Main {
         System.out.print("\n " + mensagem + " \n");
         System.out.print("---------------------");
         System.out.print("\n");
+    }
+
+    public static LocalDate formatarData(String data) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        // Convertendo a string para um objeto LocalDate
+        LocalDate dataObjeto = LocalDate.parse(data, formatter);
+
+        return dataObjeto;
     }
 }

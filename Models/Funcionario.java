@@ -1,5 +1,4 @@
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class Funcionario extends Pessoa {
     private int idFuncionario;
@@ -10,10 +9,9 @@ public class Funcionario extends Pessoa {
     public Funcionario() {
     }
 
-    public Funcionario(String cpf, String nome, LocalDate dataNascimento, String telefone,
-            int numero, String rua, String cep,
+    public Funcionario(String nome, LocalDate dataNascimento, String telefone,
             int idFuncionario, LocalDate dataAdmissao, Departamento departamento, String cargo) {
-        super(cpf, nome, dataNascimento, telefone, numero, rua, cep);
+        super(nome, dataNascimento, telefone);
         this.setIdFuncionario(idFuncionario);
         this.dataAdmissao = dataAdmissao;
         setDepartamento(departamento);
