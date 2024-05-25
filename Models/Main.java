@@ -101,8 +101,6 @@ public class Main {
                     "Opção Inválida! Caso deseje retornar ao menu inicial, digite SAIR.\n Informe  data de nascimento do funcionário (AAAA-MM-DD): ");
         }
         String dataNascimento = scanner.next("[0-9]{4}-[0-9]{2}-[0-9]{2}");
-        
-        novoFuncionario.setDataNascimento()
 
         // telefone
         System.out.println(
@@ -140,37 +138,36 @@ public class Main {
         }
         String dataAdmissaoString = scanner.next("[0-9]{4}-[0-9]{2}-[0-9]{2}");
 
-        // Criação do objeto funcionário
-        Funcionario novoFuncionario = new Funcionario();
         // ------------------------------------------------------------------------------
 
-        System.out.println("\n Informe o número de identificação do funcionário: ");
+        // System.out.println("\n Informe o número de identificação do funcionário: ");
 
-        Scanner scanner = new Scanner(System.in);
+        // Scanner scanner = new Scanner(System.in);
 
-        if (scanner.hasNext()) {
+        // if (scanner.hasNext()) {
 
-            String idFuncionario = scanner.next();
+        // String idFuncionario = scanner.next();
 
-            DbContext database = new DbContext();
+        // DbContext database = new DbContext();
 
-            try {
-                database.conectarBanco();
+        // try {
+        // database.conectarBanco();
 
-                boolean statusQuery = database
-                        .executarUpdateSql("INSERT INTO public.funcionario(nome) VALUES ('" + nomeAnimal + "')");
+        // boolean statusQuery = database
+        // .executarUpdateSql("INSERT INTO public.funcionario(nome) VALUES ('" +
+        // nomeAnimal + "')");
 
-                if (statusQuery) {
-                    mensagemStatus("Novo animal cadastrado com sucesso !");
-                }
+        // if (statusQuery) {
+        // mensagemStatus("Novo animal cadastrado com sucesso !");
+        // }
 
-                database.desconectarBanco();
+        // database.desconectarBanco();
 
-            } catch (Exception e) {
-            }
+        // } catch (Exception e) {
+        // }
 
-            inicio();
-        }
+        // inicio();
+        // }
 
     }
 
@@ -181,11 +178,16 @@ public class Main {
         try {
             database.conectarBanco();
 
-            ResultSet resultadoConsulta = database.executarQuerySql("SELECT * FROM public.animais");
+            ResultSet resultadoConsulta = database.executarQuerySql("SELECT * FROM Funcionario");
 
             while (resultadoConsulta.next()) {
-                System.out.println("ID - " + resultadoConsulta.getString("id") + " | NOME - "
-                        + resultadoConsulta.getString("nome"));
+                System.out.println("ID - " + resultadoConsulta.getString("idFuncionario") + " | Nome - "
+                        + resultadoConsulta.getString("nome") + " | Data Nascimento - "
+                        + resultadoConsulta.getString("dataNascimento") + " | Telefone - "
+                        + resultadoConsulta.getString("telefone")
+                        + " | Data Admissao - " + resultadoConsulta.getString("dataAdmissao")
+                        + " | Departamento - " + resultadoConsulta.getString("departamento") + " | Cargo - "
+                        + resultadoConsulta.getString("cargo"));
             }
 
             database.desconectarBanco();
@@ -198,23 +200,23 @@ public class Main {
 
     public static void removerFuncionario() {
 
-        System.out.println("\n Informe o ID do animal a ser deletado: ");
+        System.out.println("\n Informe o ID do funcionario a ser deletado: ");
 
         Scanner scanner = new Scanner(System.in);
 
         if (scanner.hasNextInt()) {
 
-            int idAnimal = scanner.nextInt();
+            int idFuncionario = scanner.nextInt();
 
             DbContext database = new DbContext();
 
             try {
                 database.conectarBanco();
 
-                boolean statusQuery = database.executarUpdateSql("DELETE FROM public.animais WHERE id = " + idAnimal);
+                boolean statusQuery = database.executarUpdateSql("DELETE FROM Funcionario WHERE id = " + idFuncionario);
 
                 if (statusQuery) {
-                    mensagemStatus("Animal deletado com sucesso !");
+                    mensagemStatus("Funcionario deletado com sucesso !");
                 }
 
                 database.desconectarBanco();
@@ -224,7 +226,6 @@ public class Main {
 
             inicio();
         }
-
     }
 
     public static void atualizarFuncionario() {
