@@ -106,13 +106,12 @@ public class Main {
         System.out.println(
                 "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o telefone do funcionário (somente numeros): ");
 
-        while (!scanner.hasNext()) {
-            if (scanner.next().toUpperCase().equals("SAIR"))
+        if (scanner.hasNext()) {
+            String aux = scanner.nextLine();
+            if (aux.toUpperCase().equals("SAIR"))
                 return;
-            System.out.println(
-                    "Opção Inválida! Caso deseje retornar ao menu inicial, digite SAIR.\n Informe o telefone do funcionário [(XX)XXXXXXXXX]: ");
+            novoFuncionario.setTelefone(aux);
         }
-        novoFuncionario.setTelefone(scanner.next());
 
         // data de admissão ------------------------
         System.out.println(
@@ -131,25 +130,21 @@ public class Main {
         System.out.println(
                 "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o Departamento do funcionário: ");
 
-        while (!scanner.hasNextLine()) {
-            if (scanner.next().toUpperCase().equals("SAIR"))
-                return;
-            System.out.println(
-                    "Opção Inválida! Caso deseje retornar ao menu inicial, digite SAIR.\n Informe o Departamento do funcionário: ");
-        }
-        String nomeDepartamento = scanner.nextLine();
+        String aux = scanner.nextLine();
+        if (aux.toUpperCase().equals("SAIR"))
+            return;
+        String nomeDepartamento = aux;
 
         // cargo ------------------------------
         System.out.println(
                 "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o cargo do funcionário: ");
 
-        while (!scanner.hasNextLine()) {
-            if (scanner.next().toUpperCase().equals("SAIR"))
+        if (scanner.hasNextLine()) {
+            String aux2 = scanner.nextLine();
+            if (aux2.toUpperCase().equals("SAIR"))
                 return;
-            System.out.println(
-                    "Opção Inválida! Caso deseje retornar ao menu inicial, digite SAIR.\n Informe o cargo do funcionário: ");
+            novoFuncionario.setCargo(aux2);
         }
-        novoFuncionario.setCargo(scanner.nextLine());
 
         // ------------------------------------------------------------------------------
 
@@ -160,14 +155,14 @@ public class Main {
 
             boolean statusQuery = database
                     .executarUpdateSql(
-                            "INSERT INTO public.funcionario(nome, dataNascimento, telefone, dataAdmissao, departamento, cargo) VALUES ("
-                                    + novoFuncionario.getNome() + ", "
-                                    + dataNascimentoString + ", "
-                                    + novoFuncionario.getTelefone() + ", "
-                                    + dataAdmissaoString + ", "
-                                    + nomeDepartamento + ", "
+                            "INSERT INTO public.funcionario(nome, dataNascimento, telefone, dataAdmissao, departamento, cargo) VALUES ('"
+                                    + novoFuncionario.getNome() + "'', '"
+                                    + dataNascimentoString + "'', '"
+                                    + novoFuncionario.getTelefone() + "'', '"
+                                    + dataAdmissaoString + "'', '"
+                                    + nomeDepartamento + "'', '"
                                     + novoFuncionario.getCargo()
-                                    + ");");
+                                    + "'');");
 
             if (statusQuery) {
                 mensagemStatus("Novo funcionario cadastrado com sucesso !");
@@ -251,12 +246,10 @@ public class Main {
             System.out.println(
                     "Opção Inválida! Caso deseje retornar ao menu inicial, digite SAIR.\n Informe  o ID do funcionário: ");
         }
-        int idFuncionario = scanner.nextInt();
-
         Funcionario novoFuncionario = new Funcionario();
-        novoFuncionario.setIdFuncionario(idFuncionario);
+        novoFuncionario.setIdFuncionario(scanner.nextInt());
 
-        // obtendo os dados atualizados do funcionário que será cadastrado
+        // obtendo os dados atualizados do funcionário
 
         // Nome -------------------
         System.out.println(
@@ -286,13 +279,12 @@ public class Main {
         System.out.println(
                 "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o telefone do funcionário (somente numeros): ");
 
-        while (!scanner.hasNext()) {
-            if (scanner.next().toUpperCase().equals("SAIR"))
+        if (scanner.hasNext()) {
+            String aux = scanner.nextLine();
+            if (aux.toUpperCase().equals("SAIR"))
                 return;
-            System.out.println(
-                    "Opção Inválida! Caso deseje retornar ao menu inicial, digite SAIR.\n Informe o telefone do funcionário [(XX)XXXXXXXXX]: ");
+            novoFuncionario.setTelefone(aux);
         }
-        novoFuncionario.setTelefone(scanner.next());
 
         // data de admissão ------------------------
         System.out.println(
@@ -311,25 +303,21 @@ public class Main {
         System.out.println(
                 "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o Departamento do funcionário: ");
 
-        while (!scanner.hasNextLine()) {
-            if (scanner.next().toUpperCase().equals("SAIR"))
-                return;
-            System.out.println(
-                    "Opção Inválida! Caso deseje retornar ao menu inicial, digite SAIR.\n Informe o Departamento do funcionário: ");
-        }
-        String nomeDepartamento = scanner.nextLine();
+        String aux = scanner.nextLine();
+        if (aux.toUpperCase().equals("SAIR"))
+            return;
+        String nomeDepartamento = aux;
 
         // cargo ------------------------------
         System.out.println(
                 "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o cargo do funcionário: ");
 
-        while (!scanner.hasNextLine()) {
-            if (scanner.next().toUpperCase().equals("SAIR"))
+        if (scanner.hasNextLine()) {
+            String aux2 = scanner.nextLine();
+            if (aux2.toUpperCase().equals("SAIR"))
                 return;
-            System.out.println(
-                    "Opção Inválida! Caso deseje retornar ao menu inicial, digite SAIR.\n Informe o cargo do funcionário: ");
+            novoFuncionario.setCargo(aux2);
         }
-        novoFuncionario.setCargo(scanner.nextLine());
 
         // ------------------------------------------------------------------------------
 
@@ -351,16 +339,16 @@ public class Main {
 
             boolean statusQuery = database.executarUpdateSql(
                     "UPDATE public.funcionario SET "
-                            + "nome = " + novoFuncionario.getNome()
-                            + ", dataNascimento = " + dataNascimentoString
-                            + ", telefone = " + novoFuncionario.getTelefone()
-                            + ", dataAdmissao = " + dataAdmissaoString
-                            + ", departamento = " + nomeDepartamento
-                            + ", cargo = " + novoFuncionario.getCargo()
-                            + " WHERE id = " + novoFuncionario.getIdFuncionario() + ";");
+                            + "nome = '" + novoFuncionario.getNome()
+                            + "', dataNascimento = '" + dataNascimentoString
+                            + "', telefone = '" + novoFuncionario.getTelefone()
+                            + "', dataAdmissao = '" + dataAdmissaoString
+                            + "', departamento = '" + nomeDepartamento
+                            + "', cargo = '" + novoFuncionario.getCargo()
+                            + "' WHERE id = " + novoFuncionario.getIdFuncionario() + ";");
 
             if (statusQuery) {
-                mensagemStatus("Animal atualizado com sucesso !");
+                mensagemStatus("funcionário atualizado com sucesso !");
             }
 
             database.desconectarBanco();
