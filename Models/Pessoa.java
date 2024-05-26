@@ -1,15 +1,16 @@
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.format.DateTimeFormatter;
 
 public class Pessoa {
     private String nome;
-    private LocalDate dataNascimento;
+    private String dataNascimento;
     private String telefone;
 
     public Pessoa() {
     }
 
-    public Pessoa(String nome, LocalDate dataNascimento, String telefone) {
+    public Pessoa(String nome, String dataNascimento, String telefone) {
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.telefone = telefone;
@@ -23,11 +24,11 @@ public class Pessoa {
         this.nome = novoNome;
     }
 
-    public LocalDate getDataNascimento() {
+    public String getDataNascimento() {
         return this.dataNascimento;
     }
 
-    public void setDataNascimento(LocalDate novaData) {
+    public void setDataNascimento(String novaData) {
         this.dataNascimento = novaData;
     }
 
@@ -41,7 +42,8 @@ public class Pessoa {
 
     public int calcularIdade() {
         LocalDate dataAtual = LocalDate.now();
-        Period periodoEntreDatas = Period.between(dataNascimento, dataAtual);
+
+        Period periodoEntreDatas = Period.between(formatarData(this.dataNascimento), dataAtual);
         return periodoEntreDatas.getYears();
     }
 
@@ -52,4 +54,13 @@ public class Pessoa {
         System.out.println("Telefones: " + this.getTelefone());
         System.out.print("\n");
     }
+
+    private LocalDate formatarData(String data) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        // Convertendo a string para um objeto LocalDate
+        LocalDate dataLocalDate = LocalDate.parse(data, formatter);
+
+        return dataLocalDate;
+    }
+
 }

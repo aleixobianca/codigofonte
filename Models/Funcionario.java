@@ -1,20 +1,19 @@
-import java.time.LocalDate;
 
 public class Funcionario extends Pessoa {
     private int idFuncionario;
-    private LocalDate dataAdmissao;
-    private Departamento departamento;
+    private String dataAdmissao;
+    private String departamento;
     private String cargo;
 
     public Funcionario() {
     }
 
-    public Funcionario(String nome, LocalDate dataNascimento, String telefone,
-            int idFuncionario, LocalDate dataAdmissao, Departamento departamento, String cargo) {
+    public Funcionario(String nome, String dataNascimento, String telefone,
+            int idFuncionario, String dataAdmissao, String departamento, String cargo) {
         super(nome, dataNascimento, telefone);
-        this.setIdFuncionario(idFuncionario);
+        this.idFuncionario = idFuncionario;
         this.dataAdmissao = dataAdmissao;
-        setDepartamento(departamento);
+        this.departamento = departamento;
         this.cargo = cargo;
     }
 
@@ -28,20 +27,19 @@ public class Funcionario extends Pessoa {
     }
 
     public String getNomeDepartamento() {
-        return this.departamento.getNome();
+        return this.departamento;
     }
 
-    public void setDepartamento(Departamento novoSetor) {
-        if (departamento.cadastrarFuncionario(this)) {
-            this.departamento = novoSetor;
-        }
+    public void setDepartamento(String novoSetor) {
+        this.departamento = novoSetor;
+
     }
 
-    public LocalDate getDataAdmissao() {
+    public String getDataAdmissao() {
         return this.dataAdmissao;
     }
 
-    public void setDataAdmissao(LocalDate novaData) {
+    public void setDataAdmissao(String novaData) {
         this.dataAdmissao = novaData;
     }
 

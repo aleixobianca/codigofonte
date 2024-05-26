@@ -7,12 +7,6 @@ import Data.DbContext;
 public class Main {
     public static void main(String[] args) {
         // LocalDate dataNascimento1 = LocalDate.of(1993, 5, 23);
-        // ArrayList<String> telefones1 = new ArrayList<>();
-        // telefones1.add("11111-1111");
-        // telefones1.add("55555-5555");
-        // Pessoa pessoa1 = new Pessoa("2222222","Maria", dataNascimento1, telefones1,
-        // 250, "das flores", "5555");
-        // pessoa1.listarDados();
 
         inicio();
     }
@@ -99,8 +93,8 @@ public class Main {
             System.out.println(
                     "Opção Inválida! Caso deseje retornar ao menu inicial, digite SAIR.\n Informe  data de nascimento do funcionário (AAAA-MM-DD): ");
         }
-        String dataNascimentoString = scanner.next("[0-9]{4}-[0-9]{2}-[0-9]{2}");
-        novoFuncionario.setDataNascimento(formatarData(dataNascimentoString));
+
+        novoFuncionario.setDataNascimento(scanner.next("[0-9]{4}-[0-9]{2}-[0-9]{2}"));
 
         // telefone------------------
         System.out.println(
@@ -123,31 +117,33 @@ public class Main {
             System.out.println(
                     "Opção Inválida! Caso deseje retornar ao menu inicial, digite SAIR.\n Informe data de admissao do funcionário (AAAA-MM-DD): ");
         }
-        String dataAdmissaoString = scanner.next("[0-9]{4}-[0-9]{2}-[0-9]{2}");
-        novoFuncionario.setDataAdmissao(formatarData(dataAdmissaoString));
+
+        novoFuncionario.setDataAdmissao(scanner.next("[0-9]{4}-[0-9]{2}-[0-9]{2}"));
         scanner.nextLine();
 
         // Departamento ------------------
         System.out.println(
                 "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o Departamento do funcionário: ");
 
-        String aux = scanner.nextLine();
-        if (aux.toUpperCase().equals("SAIR"))
-            return;
-        String nomeDepartamento = aux;
+        if (scanner.hasNextLine()) {
+            String aux = scanner.nextLine();
+            if (aux.toUpperCase().equals("SAIR"))
+                return;
+            novoFuncionario.setDepartamento(aux);
+        }
 
         // cargo ------------------------------
         System.out.println(
                 "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o cargo do funcionário: ");
 
         if (scanner.hasNextLine()) {
-            String aux2 = scanner.nextLine();
-            if (aux2.toUpperCase().equals("SAIR"))
+            String aux = scanner.nextLine();
+            if (aux.toUpperCase().equals("SAIR"))
                 return;
-            novoFuncionario.setCargo(aux2);
+            novoFuncionario.setCargo(aux);
         }
 
-        // ------------------------------------------------------------------------------
+        // cadastro no banco de dados
 
         DbContext database = new DbContext();
 
@@ -158,10 +154,10 @@ public class Main {
                     .executarUpdateSql(
                             "INSERT INTO public.funcionario(nome, dataNascimento, telefone, dataAdmissao, departamento, cargo) VALUES ('"
                                     + novoFuncionario.getNome() + "', '"
-                                    + dataNascimentoString + "', '"
+                                    + novoFuncionario.getDataNascimento() + "', '"
                                     + novoFuncionario.getTelefone() + "', '"
-                                    + dataAdmissaoString + "', '"
-                                    + nomeDepartamento + "', '"
+                                    + novoFuncionario.getDataAdmissao() + "', '"
+                                    + novoFuncionario.getNomeDepartamento() + "', '"
                                     + novoFuncionario.getCargo()
                                     + "');");
 
@@ -188,6 +184,8 @@ public class Main {
             ResultSet resultadoConsulta = database.executarQuerySql("SELECT * FROM Funcionario");
 
             while (resultadoConsulta.next()) {
+                System.out.println(
+                        "----------------------------------------------------------------");
                 System.out.println("ID - " + resultadoConsulta.getString("idFuncionario") + " | Nome - "
                         + resultadoConsulta.getString("nome") + " | Data Nascimento - "
                         + resultadoConsulta.getString("dataNascimento") + " | Telefone - "
@@ -195,8 +193,10 @@ public class Main {
                         + " | Data Admissao - " + resultadoConsulta.getString("dataAdmissao")
                         + " | Departamento - " + resultadoConsulta.getString("departamento") + " | Cargo - "
                         + resultadoConsulta.getString("cargo"));
+                ;
             }
-
+            System.out.println(
+                    "--------------------------------------------------------------------");
             database.desconectarBanco();
 
         } catch (Exception e) {
@@ -220,7 +220,8 @@ public class Main {
             try {
                 database.conectarBanco();
 
-                boolean statusQuery = database.executarUpdateSql("DELETE FROM Funcionario WHERE idFuncionario = " + idFuncionario);
+                boolean statusQuery = database
+                        .executarUpdateSql("DELETE FROM Funcionario WHERE idFuncionario = " + idFuncionario);
 
                 if (statusQuery) {
                     mensagemStatus("Funcionario deletado com sucesso !");
@@ -249,6 +250,7 @@ public class Main {
         }
         Funcionario novoFuncionario = new Funcionario();
         novoFuncionario.setIdFuncionario(scanner.nextInt());
+        scanner.nextLine();
 
         // obtendo os dados atualizados do funcionário
 
@@ -273,8 +275,8 @@ public class Main {
             System.out.println(
                     "Opção Inválida! Caso deseje retornar ao menu inicial, digite SAIR.\n Informe  data de nascimento do funcionário (AAAA-MM-DD): ");
         }
-        String dataNascimentoString = scanner.next("[0-9]{4}-[0-9]{2}-[0-9]{2}");
-        novoFuncionario.setDataNascimento(formatarData(dataNascimentoString));
+
+        novoFuncionario.setDataNascimento(scanner.next("[0-9]{4}-[0-9]{2}-[0-9]{2}"));
 
         // telefone------------------
         System.out.println(
@@ -297,28 +299,30 @@ public class Main {
             System.out.println(
                     "Opção Inválida! Caso deseje retornar ao menu inicial, digite SAIR.\n Informe data de admissao do funcionário (AAAA-MM-DD): ");
         }
-        String dataAdmissaoString = scanner.next("[0-9]{4}-[0-9]{2}-[0-9]{2}");
-        novoFuncionario.setDataAdmissao(formatarData(dataAdmissaoString));
+
+        novoFuncionario.setDataAdmissao(scanner.next("[0-9]{4}-[0-9]{2}-[0-9]{2}"));
         scanner.nextLine();
 
         // Departamento ------------------
         System.out.println(
                 "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o Departamento do funcionário: ");
 
-        String aux = scanner.nextLine();
-        if (aux.toUpperCase().equals("SAIR"))
-            return;
-        String nomeDepartamento = aux;
+        if (scanner.hasNextLine()) {
+            String aux = scanner.nextLine();
+            if (aux.toUpperCase().equals("SAIR"))
+                return;
+            novoFuncionario.setDepartamento(aux);
+        }
 
         // cargo ------------------------------
         System.out.println(
                 "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o cargo do funcionário: ");
 
         if (scanner.hasNextLine()) {
-            String aux2 = scanner.nextLine();
-            if (aux2.toUpperCase().equals("SAIR"))
+            String aux = scanner.nextLine();
+            if (aux.toUpperCase().equals("SAIR"))
                 return;
-            novoFuncionario.setCargo(aux2);
+            novoFuncionario.setCargo(aux);
         }
 
         // ------------------------------------------------------------------------------
@@ -331,10 +335,10 @@ public class Main {
             boolean statusQuery = database.executarUpdateSql(
                     "UPDATE public.funcionario SET "
                             + "nome = '" + novoFuncionario.getNome()
-                            + "', dataNascimento = '" + dataNascimentoString
+                            + "', dataNascimento = '" + novoFuncionario.getDataNascimento()
                             + "', telefone = '" + novoFuncionario.getTelefone()
-                            + "', dataAdmissao = '" + dataAdmissaoString
-                            + "', departamento = '" + nomeDepartamento
+                            + "', dataAdmissao = '" + novoFuncionario.getDataAdmissao()
+                            + "', departamento = '" + novoFuncionario.getNomeDepartamento()
                             + "', cargo = '" + novoFuncionario.getCargo()
                             + "' WHERE idFuncionario = " + novoFuncionario.getIdFuncionario() + ";");
 
@@ -354,9 +358,9 @@ public class Main {
     // MÉTODO RESPONSÁVEL SOMENTE POR EXIBIR UMA MENSAGEM NA TELA
     public static void mensagemStatus(String mensagem) {
         System.out.print("\n");
-        System.out.print("---------------------");
+        System.out.print("--------------------------------");
         System.out.print("\n " + mensagem + " \n");
-        System.out.print("---------------------");
+        System.out.print("--------------------------------");
         System.out.print("\n");
     }
 
