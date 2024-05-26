@@ -107,7 +107,7 @@ public class Main {
                 "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o telefone do funcionário (somente numeros): ");
 
         if (scanner.hasNext()) {
-            String aux = scanner.nextLine();
+            String aux = scanner.next();
             if (aux.toUpperCase().equals("SAIR"))
                 return;
             novoFuncionario.setTelefone(aux);
@@ -125,6 +125,7 @@ public class Main {
         }
         String dataAdmissaoString = scanner.next("[0-9]{4}-[0-9]{2}-[0-9]{2}");
         novoFuncionario.setDataAdmissao(formatarData(dataAdmissaoString));
+        scanner.nextLine();
 
         // Departamento ------------------
         System.out.println(
@@ -156,13 +157,13 @@ public class Main {
             boolean statusQuery = database
                     .executarUpdateSql(
                             "INSERT INTO public.funcionario(nome, dataNascimento, telefone, dataAdmissao, departamento, cargo) VALUES ('"
-                                    + novoFuncionario.getNome() + "'', '"
-                                    + dataNascimentoString + "'', '"
-                                    + novoFuncionario.getTelefone() + "'', '"
-                                    + dataAdmissaoString + "'', '"
-                                    + nomeDepartamento + "'', '"
+                                    + novoFuncionario.getNome() + "', '"
+                                    + dataNascimentoString + "', '"
+                                    + novoFuncionario.getTelefone() + "', '"
+                                    + dataAdmissaoString + "', '"
+                                    + nomeDepartamento + "', '"
                                     + novoFuncionario.getCargo()
-                                    + "'');");
+                                    + "');");
 
             if (statusQuery) {
                 mensagemStatus("Novo funcionario cadastrado com sucesso !");
@@ -280,7 +281,7 @@ public class Main {
                 "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o telefone do funcionário (somente numeros): ");
 
         if (scanner.hasNext()) {
-            String aux = scanner.nextLine();
+            String aux = scanner.next();
             if (aux.toUpperCase().equals("SAIR"))
                 return;
             novoFuncionario.setTelefone(aux);
@@ -298,6 +299,7 @@ public class Main {
         }
         String dataAdmissaoString = scanner.next("[0-9]{4}-[0-9]{2}-[0-9]{2}");
         novoFuncionario.setDataAdmissao(formatarData(dataAdmissaoString));
+        scanner.nextLine();
 
         // Departamento ------------------
         System.out.println(
@@ -320,17 +322,6 @@ public class Main {
         }
 
         // ------------------------------------------------------------------------------
-
-        // if (scanner.hasNextInt()) {
-
-        // int idAnimal = scanner.nextInt();
-        // String novoNomeAnimal = "";
-
-        // System.out.print("\n Informe o novo nome do animal a ser atualizado: ");
-
-        // if (scanner.hasNext()) {
-
-        // novoNomeAnimal = scanner.next();
 
         DbContext database = new DbContext();
 
