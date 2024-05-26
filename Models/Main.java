@@ -220,7 +220,7 @@ public class Main {
             try {
                 database.conectarBanco();
 
-                boolean statusQuery = database.executarUpdateSql("DELETE FROM Funcionario WHERE id = " + idFuncionario);
+                boolean statusQuery = database.executarUpdateSql("DELETE FROM Funcionario WHERE idFuncionario = " + idFuncionario);
 
                 if (statusQuery) {
                     mensagemStatus("Funcionario deletado com sucesso !");
@@ -336,7 +336,7 @@ public class Main {
                             + "', dataAdmissao = '" + dataAdmissaoString
                             + "', departamento = '" + nomeDepartamento
                             + "', cargo = '" + novoFuncionario.getCargo()
-                            + "' WHERE id = " + novoFuncionario.getIdFuncionario() + ";");
+                            + "' WHERE idFuncionario = " + novoFuncionario.getIdFuncionario() + ";");
 
             if (statusQuery) {
                 mensagemStatus("funcionário atualizado com sucesso !");
