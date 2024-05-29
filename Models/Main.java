@@ -4,7 +4,6 @@ import Data.DbContext;
 
 public class Main {
     public static void main(String[] args) {
-        // LocalDate dataNascimento1 = LocalDate.of(1993, 5, 23);
 
         inicio();
     }
@@ -250,105 +249,343 @@ public class Main {
         novoFuncionario.setIdFuncionario(scanner.nextInt());
         scanner.nextLine();
 
-        // obtendo os dados atualizados do funcionário
+        System.out.println("Quais dados serão atualizados?\n"
+                            + "1.Nome\n"
+                            + "2.Data de nascimento\n"
+                            + "3.Telefone\n"
+                            + "4.Data de admissão\n"
+                            + "5.Departamento\n"
+                            + "6.Cargo\n"
+                            + "7.Todos os dados listados acima\n"
+                            + "Ou, digite SAIR para retornar ao menu inicial.\n"
+                            + "Escolha uma opção: ");
 
-        // Nome -------------------
-        System.out.println(
-                "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o novo nome do funcionário: ");
-
-        if (scanner.hasNextLine()) {
-            String aux = scanner.nextLine();
-            if (aux.toUpperCase().equals("SAIR"))
-                return;
-            novoFuncionario.setNome(aux);
-        }
-
-        // data de nascimento--------------------
-        System.out.println(
-                "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme a data de nascimento do funcionário (AAAA-MM-DD): ");
-
-        while (!scanner.hasNext("[0-9]{4}-[0-9]{2}-[0-9]{2}")) {
+        while (!scanner.hasNextInt()) {
             if (scanner.next().toUpperCase().equals("SAIR"))
                 return;
             System.out.println(
-                    "Opção Inválida! Caso deseje retornar ao menu inicial, digite SAIR.\n Informe  data de nascimento do funcionário (AAAA-MM-DD): ");
-        }
-
-        novoFuncionario.setDataNascimento(scanner.next("[0-9]{4}-[0-9]{2}-[0-9]{2}"));
-
-        // telefone------------------
-        System.out.println(
-                "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o telefone do funcionário (somente numeros): ");
-
-        if (scanner.hasNext()) {
-            String aux = scanner.next();
-            if (aux.toUpperCase().equals("SAIR"))
-                return;
-            novoFuncionario.setTelefone(aux);
-        }
-
-        // data de admissão ------------------------
-        System.out.println(
-                "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme a data de admissao do funcionário (AAAA-MM-DD): ");
-
-        while (!scanner.hasNext("[0-9]{4}-[0-9]{2}-[0-9]{2}")) {
-            if (scanner.next().toUpperCase().equals("SAIR"))
-                return;
-            System.out.println(
-                    "Opção Inválida! Caso deseje retornar ao menu inicial, digite SAIR.\n Informe data de admissao do funcionário (AAAA-MM-DD): ");
-        }
-
-        novoFuncionario.setDataAdmissao(scanner.next("[0-9]{4}-[0-9]{2}-[0-9]{2}"));
+                    "Opção Inválida! Quais dados serão atualizados?\n"
+                    + "1.Nome\n"
+                    + "2.Data de nascimento\n"
+                    + "3.Telefone\n"
+                    + "4.Data de admissão\n"
+                    + "5.Departamento\n"
+                    + "6.Cargo\n"
+                    + "7.Todos os dados listados acima\n"
+                    + "Ou, digite SAIR para retornar ao menu inicial.\n"
+                    + "Escolha uma opção:");
+        }                    
+        
+        
+        int opcao2 = scanner.nextInt();
         scanner.nextLine();
-
-        // Departamento ------------------
-        System.out.println(
-                "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o Departamento do funcionário: ");
-
-        if (scanner.hasNextLine()) {
-            String aux = scanner.nextLine();
-            if (aux.toUpperCase().equals("SAIR"))
-                return;
-            novoFuncionario.setDepartamento(aux);
-        }
-
-        // cargo ------------------------------
-        System.out.println(
-                "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o cargo do funcionário: ");
-
-        if (scanner.hasNextLine()) {
-            String aux = scanner.nextLine();
-            if (aux.toUpperCase().equals("SAIR"))
-                return;
-            novoFuncionario.setCargo(aux);
-        }
-
-        // ------------------------------------------------------------------------------
-
+        
         DbContext database = new DbContext();
 
-        try {
-            database.conectarBanco();
+        switch(opcao2) {
+            case 1:
+                System.out.println(
+                    "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o novo nome do funcionário: ");
 
-            boolean statusQuery = database.executarUpdateSql(
-                    "UPDATE public.funcionario SET "
-                            + "nome = '" + novoFuncionario.getNome()
-                            + "', dataNascimento = '" + novoFuncionario.getDataNascimento()
-                            + "', telefone = '" + novoFuncionario.getTelefone()
-                            + "', dataAdmissao = '" + novoFuncionario.getDataAdmissao()
-                            + "', departamento = '" + novoFuncionario.getNomeDepartamento()
-                            + "', cargo = '" + novoFuncionario.getCargo()
-                            + "' WHERE idFuncionario = " + novoFuncionario.getIdFuncionario() + ";");
+                if (scanner.hasNextLine()) {
+                    String aux = scanner.nextLine();
+                    if (aux.toUpperCase().equals("SAIR"))
+                        return;
+                    novoFuncionario.setNome(aux);
+                }
+                 // ------------------------------------------------------------------------------
+                 try {
+                     database.conectarBanco();
+ 
+                     boolean statusQuery = database.executarUpdateSql(
+                             "UPDATE public.funcionario SET "
+                                     + "nome = '" + novoFuncionario.getNome()
+                                     + "' WHERE idFuncionario = " + novoFuncionario.getIdFuncionario() + ";");
+ 
+                     if (statusQuery) {
+                         mensagemStatus("funcionário atualizado com sucesso !");
+                     }
+ 
+                     database.desconectarBanco();
+ 
+                 } catch (Exception e) {
+                 }
+ 
+                 break;
 
-            if (statusQuery) {
-                mensagemStatus("funcionário atualizado com sucesso !");
-            }
+            case 2:
+                // data de nascimento--------------------
+                System.out.println(
+                        "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme a nova data de nascimento do funcionário (AAAA-MM-DD): ");
 
-            database.desconectarBanco();
+                while (!scanner.hasNext("[0-9]{4}-[0-9]{2}-[0-9]{2}")) {
+                    if (scanner.next().toUpperCase().equals("SAIR"))
+                        return;
+                    System.out.println(
+                            "Opção Inválida! Caso deseje retornar ao menu inicial, digite SAIR.\n Informe  a nova data de nascimento do funcionário (AAAA-MM-DD): ");
+                }
 
-        } catch (Exception e) {
-        }
+                novoFuncionario.setDataNascimento(scanner.next("[0-9]{4}-[0-9]{2}-[0-9]{2}"));
 
+                // ------------------------------------------------------------------------------
+
+                try {
+                    database.conectarBanco();
+
+                    boolean statusQuery = database.executarUpdateSql(
+                            "UPDATE public.funcionario SET "
+                                    + "dataNascimento = '" + novoFuncionario.getDataNascimento()
+                                    + "' WHERE idFuncionario = " + novoFuncionario.getIdFuncionario() + ";");
+
+                    if (statusQuery) {
+                        mensagemStatus("funcionário atualizado com sucesso !");
+                    }
+
+                    database.desconectarBanco();
+
+                } catch (Exception e) {
+                }
+
+                break;
+
+            case 3:
+                // telefone------------------
+                System.out.println(
+                        "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o novo telefone do funcionário (somente numeros): ");
+
+                if (scanner.hasNext()) {
+                    String aux = scanner.next();
+                    if (aux.toUpperCase().equals("SAIR"))
+                        return;
+                    novoFuncionario.setTelefone(aux);
+                }
+
+                // ------------------------------------------------------------------------------
+
+                try {
+                    database.conectarBanco();
+
+                    boolean statusQuery = database.executarUpdateSql(
+                            "UPDATE public.funcionario SET "
+                                    + "telefone = '" + novoFuncionario.getTelefone()
+                                    + "' WHERE idFuncionario = " + novoFuncionario.getIdFuncionario() + ";");
+
+                    if (statusQuery) {
+                        mensagemStatus("funcionário atualizado com sucesso !");
+                    }
+
+                    database.desconectarBanco();
+
+                } catch (Exception e) {
+                }
+
+                break;
+
+            case 4:
+                // data de admissão ------------------------
+                System.out.println(
+                        "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme a nova data de admissao do funcionário (AAAA-MM-DD): ");
+
+                while (!scanner.hasNext("[0-9]{4}-[0-9]{2}-[0-9]{2}")) {
+                    if (scanner.next().toUpperCase().equals("SAIR"))
+                        return;
+                    System.out.println(
+                            "Opção Inválida! Caso deseje retornar ao menu inicial, digite SAIR.\n Informe a nova data de admissao do funcionário (AAAA-MM-DD): ");
+                }
+
+                novoFuncionario.setDataAdmissao(scanner.next("[0-9]{4}-[0-9]{2}-[0-9]{2}"));
+                scanner.nextLine();
+
+                try {
+                    database.conectarBanco();
+
+                    boolean statusQuery = database.executarUpdateSql(
+                            "UPDATE public.funcionario SET "
+                                    + "dataAdmissao = '" + novoFuncionario.getDataAdmissao()
+                                    + "' WHERE idFuncionario = " + novoFuncionario.getIdFuncionario() + ";");
+
+                    if (statusQuery) {
+                        mensagemStatus("funcionário atualizado com sucesso !");
+                    }
+
+                    database.desconectarBanco();
+
+                } catch (Exception e) {
+                }
+
+                break;
+
+            case 5:
+                // Departamento ------------------
+                System.out.println(
+                    "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o Departamento do funcionário: ");
+
+                if (scanner.hasNextLine()) {
+                String aux = scanner.nextLine();
+                if (aux.toUpperCase().equals("SAIR"))
+                    return;
+                novoFuncionario.setDepartamento(aux);
+                }
+
+                // ------------------------------------------------------------------------------
+
+                try {
+                    database.conectarBanco();
+
+                    boolean statusQuery = database.executarUpdateSql(
+                            "UPDATE public.funcionario SET "
+                                    + "departamento = '" + novoFuncionario.getNomeDepartamento()
+                                    + "' WHERE idFuncionario = " + novoFuncionario.getIdFuncionario() + ";");
+
+                    if (statusQuery) {
+                        mensagemStatus("funcionário atualizado com sucesso !");
+                    }
+
+                    database.desconectarBanco();
+
+                } catch (Exception e) {
+                }
+
+                break;
+
+            case 6:
+                // cargo ------------------------------
+                System.out.println(
+                        "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o cargo do funcionário: ");
+
+                if (scanner.hasNextLine()) {
+                    String aux = scanner.nextLine();
+                    if (aux.toUpperCase().equals("SAIR"))
+                        return;
+                    novoFuncionario.setCargo(aux);
+                }
+
+                // ------------------------------------------------------------------------------
+
+                try {
+                    database.conectarBanco();
+
+                    boolean statusQuery = database.executarUpdateSql(
+                            "UPDATE public.funcionario SET "
+                                    + "cargo = '" + novoFuncionario.getCargo()
+                                    + "' WHERE idFuncionario = " + novoFuncionario.getIdFuncionario() + ";");
+
+                    if (statusQuery) {
+                        mensagemStatus("funcionário atualizado com sucesso !");
+                    }
+
+                    database.desconectarBanco();
+
+                } catch (Exception e) {
+                }
+
+                break;
+
+            case 7:
+                // obtendo os dados atualizados do funcionário
+
+                // Nome -------------------
+                System.out.println(
+                        "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o novo nome do funcionário: ");
+
+                if (scanner.hasNextLine()) {
+                    String aux = scanner.nextLine();
+                    if (aux.toUpperCase().equals("SAIR"))
+                        return;
+                    novoFuncionario.setNome(aux);
+                }
+
+                // data de nascimento--------------------
+                System.out.println(
+                        "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme a data de nascimento do funcionário (AAAA-MM-DD): ");
+
+                while (!scanner.hasNext("[0-9]{4}-[0-9]{2}-[0-9]{2}")) {
+                    if (scanner.next().toUpperCase().equals("SAIR"))
+                        return;
+                    System.out.println(
+                            "Opção Inválida! Caso deseje retornar ao menu inicial, digite SAIR.\n Informe  data de nascimento do funcionário (AAAA-MM-DD): ");
+                }
+
+                novoFuncionario.setDataNascimento(scanner.next("[0-9]{4}-[0-9]{2}-[0-9]{2}"));
+
+                // telefone------------------
+                System.out.println(
+                        "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o telefone do funcionário (somente numeros): ");
+
+                if (scanner.hasNext()) {
+                    String aux = scanner.next();
+                    if (aux.toUpperCase().equals("SAIR"))
+                        return;
+                    novoFuncionario.setTelefone(aux);
+                }
+
+                // data de admissão ------------------------
+                System.out.println(
+                        "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme a data de admissao do funcionário (AAAA-MM-DD): ");
+
+                while (!scanner.hasNext("[0-9]{4}-[0-9]{2}-[0-9]{2}")) {
+                    if (scanner.next().toUpperCase().equals("SAIR"))
+                        return;
+                    System.out.println(
+                            "Opção Inválida! Caso deseje retornar ao menu inicial, digite SAIR.\n Informe data de admissao do funcionário (AAAA-MM-DD): ");
+                }
+
+                novoFuncionario.setDataAdmissao(scanner.next("[0-9]{4}-[0-9]{2}-[0-9]{2}"));
+                scanner.nextLine();
+
+                // Departamento ------------------
+                System.out.println(
+                        "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o Departamento do funcionário: ");
+
+                if (scanner.hasNextLine()) {
+                    String aux = scanner.nextLine();
+                    if (aux.toUpperCase().equals("SAIR"))
+                        return;
+                    novoFuncionario.setDepartamento(aux);
+                }
+
+                // cargo ------------------------------
+                System.out.println(
+                        "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o cargo do funcionário: ");
+
+                if (scanner.hasNextLine()) {
+                    String aux = scanner.nextLine();
+                    if (aux.toUpperCase().equals("SAIR"))
+                        return;
+                    novoFuncionario.setCargo(aux);
+                }
+
+                // ------------------------------------------------------------------------------
+
+                try {
+                    database.conectarBanco();
+
+                    boolean statusQuery = database.executarUpdateSql(
+                            "UPDATE public.funcionario SET "
+                                    + "nome = '" + novoFuncionario.getNome()
+                                    + "', dataNascimento = '" + novoFuncionario.getDataNascimento()
+                                    + "', telefone = '" + novoFuncionario.getTelefone()
+                                    + "', dataAdmissao = '" + novoFuncionario.getDataAdmissao()
+                                    + "', departamento = '" + novoFuncionario.getNomeDepartamento()
+                                    + "', cargo = '" + novoFuncionario.getCargo()
+                                    + "' WHERE idFuncionario = " + novoFuncionario.getIdFuncionario() + ";");
+
+                    if (statusQuery) {
+                        mensagemStatus("funcionário atualizado com sucesso !");
+                    }
+
+                    database.desconectarBanco();
+
+                } catch (Exception e) {
+                }
+
+                break;
+            
+            default:
+                mensagemStatus("Opção inválida");
+                break;
+        }        
+        
         inicio();
 
     }
