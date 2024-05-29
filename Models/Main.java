@@ -228,9 +228,12 @@ public class Main {
 
             } catch (Exception e) {
             }
-
-            inicio();
+            
+        } else {
+            mensagemStatus("Opção Inválida.");
         }
+
+        inicio();
     }
 
     public static void atualizarFuncionario() {
