@@ -237,7 +237,7 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("\n Informe o ID do funcionário a ser atualizado: ");
+        System.out.print("\nInforme o ID do funcionário a ser atualizado: ");
 
         while (!scanner.hasNextInt()) {
             if (scanner.next().toUpperCase().equals("SAIR"))
@@ -249,14 +249,14 @@ public class Main {
         novoFuncionario.setIdFuncionario(scanner.nextInt());
         scanner.nextLine();
 
-        System.out.println("Quais dados serão atualizados?\n"
-                            + "1.Nome\n"
-                            + "2.Data de nascimento\n"
-                            + "3.Telefone\n"
-                            + "4.Data de admissão\n"
-                            + "5.Departamento\n"
-                            + "6.Cargo\n"
-                            + "7.Todos os dados listados acima\n"
+        System.out.println("\nQuais dados serão atualizados?\n"
+                            + "1. Nome\n"
+                            + "2. Data de nascimento\n"
+                            + "3. Telefone\n"
+                            + "4. Data de admissão\n"
+                            + "5. Departamento\n"
+                            + "6. Cargo\n"
+                            + "7. Todos os dados listados acima\n"
                             + "Ou, digite SAIR para retornar ao menu inicial.\n"
                             + "Escolha uma opção: ");
 
