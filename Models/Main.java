@@ -70,7 +70,7 @@ public class Main {
         // obtendo os dados do novo funcionário que será cadastrado
 
         // Nome -------------------
-        System.out.println(
+        System.out.print(
                 "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o nome do funcionário a ser cadastrado: ");
 
         if (scanner.hasNextLine()) {
@@ -81,20 +81,20 @@ public class Main {
         }
 
         // data de nascimento--------------------
-        System.out.println(
+        System.out.print(
                 "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme a data de nascimento do funcionário (AAAA-MM-DD): ");
 
         while (!scanner.hasNext("[0-9]{4}-[0-9]{2}-[0-9]{2}")) {
             if (scanner.next().toUpperCase().equals("SAIR"))
                 return;
-            System.out.println(
+            System.out.print(
                     "Opção Inválida! Caso deseje retornar ao menu inicial, digite SAIR.\n Informe  data de nascimento do funcionário (AAAA-MM-DD): ");
         }
 
         novoFuncionario.setDataNascimento(scanner.next("[0-9]{4}-[0-9]{2}-[0-9]{2}"));
 
         // telefone------------------
-        System.out.println(
+        System.out.print(
                 "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o telefone do funcionário (somente numeros): ");
 
         if (scanner.hasNext()) {
@@ -105,7 +105,7 @@ public class Main {
         }
 
         // data de admissão ------------------------
-        System.out.println(
+        System.out.print(
                 "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme a data de admissao do funcionário (AAAA-MM-DD): ");
 
         while (!scanner.hasNext("[0-9]{4}-[0-9]{2}-[0-9]{2}")) {
@@ -119,7 +119,7 @@ public class Main {
         scanner.nextLine();
 
         // Departamento ------------------
-        System.out.println(
+        System.out.print(
                 "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o Departamento do funcionário: ");
 
         if (scanner.hasNextLine()) {
@@ -130,7 +130,7 @@ public class Main {
         }
 
         // cargo ------------------------------
-        System.out.println(
+        System.out.print(
                 "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o cargo do funcionário: ");
 
         if (scanner.hasNextLine()) {
@@ -242,38 +242,37 @@ public class Main {
         while (!scanner.hasNextInt()) {
             if (scanner.next().toUpperCase().equals("SAIR"))
                 return;
-            System.out.println(
+            System.out.print(
                     "Opção Inválida! Caso deseje retornar ao menu inicial, digite SAIR.\n Informe  o ID do funcionário: ");
         }
         Funcionario novoFuncionario = new Funcionario();
         novoFuncionario.setIdFuncionario(scanner.nextInt());
         scanner.nextLine();
 
-        System.out.println("\nQuais dados serão atualizados?\n"
-                            + "1. Nome\n"
-                            + "2. Data de nascimento\n"
-                            + "3. Telefone\n"
-                            + "4. Data de admissão\n"
-                            + "5. Departamento\n"
-                            + "6. Cargo\n"
-                            + "7. Todos os dados listados acima\n"
-                            + "Ou, digite SAIR para retornar ao menu inicial.\n"
-                            + "Escolha uma opção: ");
+        System.out.print("\nQuais dados serão atualizados?\n\n"
+                            + "\t1 - Nome\n"
+                            + "\t2 - Data de nascimento\n"
+                            + "\t3 - Telefone\n"
+                            + "\t4 - Data de admissão\n"
+                            + "\t5 - Departamento\n"
+                            + "\t6 - Cargo\n"
+                            + "\t7 - Todos os dados listados acima\n"
+                            + "\t\nOu, digite SAIR para retornar ao menu inicial.\n"
+                            + "\t\nEscolha uma opção: ");
 
         while (!scanner.hasNextInt()) {
             if (scanner.next().toUpperCase().equals("SAIR"))
                 return;
-            System.out.println(
-                    "Opção Inválida! Quais dados serão atualizados?\n"
-                    + "1.Nome\n"
-                    + "2.Data de nascimento\n"
-                    + "3.Telefone\n"
-                    + "4.Data de admissão\n"
-                    + "5.Departamento\n"
-                    + "6.Cargo\n"
-                    + "7.Todos os dados listados acima\n"
-                    + "Ou, digite SAIR para retornar ao menu inicial.\n"
-                    + "Escolha uma opção:");
+            System.out.print("\nQuais dados serão atualizados?\n\n"
+                                + "\t1 - Nome\n"
+                                + "\t2 - Data de nascimento\n"
+                                + "\t3 - Telefone\n"
+                                + "\t4 - Data de admissão\n"
+                                + "\t5 - Departamento\n"
+                                + "\t6 - Cargo\n"
+                                + "\t7 - Todos os dados listados acima\n"
+                                + "\t\nOu, digite SAIR para retornar ao menu inicial.\n"
+                                + "\t\nEscolha uma opção: ");
         }                    
         
         
@@ -284,7 +283,7 @@ public class Main {
 
         switch(opcao2) {
             case 1:
-                System.out.println(
+                System.out.print(
                     "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o novo nome do funcionário: ");
 
                 if (scanner.hasNextLine()) {
@@ -315,13 +314,13 @@ public class Main {
 
             case 2:
                 // data de nascimento--------------------
-                System.out.println(
+                System.out.print(
                         "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme a nova data de nascimento do funcionário (AAAA-MM-DD): ");
 
                 while (!scanner.hasNext("[0-9]{4}-[0-9]{2}-[0-9]{2}")) {
                     if (scanner.next().toUpperCase().equals("SAIR"))
                         return;
-                    System.out.println(
+                    System.out.print(
                             "Opção Inválida! Caso deseje retornar ao menu inicial, digite SAIR.\n Informe  a nova data de nascimento do funcionário (AAAA-MM-DD): ");
                 }
 
@@ -350,7 +349,7 @@ public class Main {
 
             case 3:
                 // telefone------------------
-                System.out.println(
+                System.out.print(
                         "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o novo telefone do funcionário (somente numeros): ");
 
                 if (scanner.hasNext()) {
@@ -383,13 +382,13 @@ public class Main {
 
             case 4:
                 // data de admissão ------------------------
-                System.out.println(
+                System.out.print(
                         "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme a nova data de admissao do funcionário (AAAA-MM-DD): ");
 
                 while (!scanner.hasNext("[0-9]{4}-[0-9]{2}-[0-9]{2}")) {
                     if (scanner.next().toUpperCase().equals("SAIR"))
                         return;
-                    System.out.println(
+                    System.out.print(
                             "Opção Inválida! Caso deseje retornar ao menu inicial, digite SAIR.\n Informe a nova data de admissao do funcionário (AAAA-MM-DD): ");
                 }
 
@@ -417,7 +416,7 @@ public class Main {
 
             case 5:
                 // Departamento ------------------
-                System.out.println(
+                System.out.print(
                     "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o Departamento do funcionário: ");
 
                 if (scanner.hasNextLine()) {
@@ -450,7 +449,7 @@ public class Main {
 
             case 6:
                 // cargo ------------------------------
-                System.out.println(
+                System.out.print(
                         "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o cargo do funcionário: ");
 
                 if (scanner.hasNextLine()) {
@@ -485,7 +484,7 @@ public class Main {
                 // obtendo os dados atualizados do funcionário
 
                 // Nome -------------------
-                System.out.println(
+                System.out.print(
                         "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o novo nome do funcionário: ");
 
                 if (scanner.hasNextLine()) {
@@ -496,20 +495,20 @@ public class Main {
                 }
 
                 // data de nascimento--------------------
-                System.out.println(
+                System.out.print(
                         "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme a data de nascimento do funcionário (AAAA-MM-DD): ");
 
                 while (!scanner.hasNext("[0-9]{4}-[0-9]{2}-[0-9]{2}")) {
                     if (scanner.next().toUpperCase().equals("SAIR"))
                         return;
-                    System.out.println(
+                    System.out.print(
                             "Opção Inválida! Caso deseje retornar ao menu inicial, digite SAIR.\n Informe  data de nascimento do funcionário (AAAA-MM-DD): ");
                 }
 
                 novoFuncionario.setDataNascimento(scanner.next("[0-9]{4}-[0-9]{2}-[0-9]{2}"));
 
                 // telefone------------------
-                System.out.println(
+                System.out.print(
                         "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o telefone do funcionário (somente numeros): ");
 
                 if (scanner.hasNext()) {
@@ -520,13 +519,13 @@ public class Main {
                 }
 
                 // data de admissão ------------------------
-                System.out.println(
+                System.out.print(
                         "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme a data de admissao do funcionário (AAAA-MM-DD): ");
 
                 while (!scanner.hasNext("[0-9]{4}-[0-9]{2}-[0-9]{2}")) {
                     if (scanner.next().toUpperCase().equals("SAIR"))
                         return;
-                    System.out.println(
+                    System.out.print(
                             "Opção Inválida! Caso deseje retornar ao menu inicial, digite SAIR.\n Informe data de admissao do funcionário (AAAA-MM-DD): ");
                 }
 
@@ -534,7 +533,7 @@ public class Main {
                 scanner.nextLine();
 
                 // Departamento ------------------
-                System.out.println(
+                System.out.print(
                         "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o Departamento do funcionário: ");
 
                 if (scanner.hasNextLine()) {
@@ -545,7 +544,7 @@ public class Main {
                 }
 
                 // cargo ------------------------------
-                System.out.println(
+                System.out.print(
                         "\nCaso deseje retornar ao menu inicial, digite SAIR.\nInforme o cargo do funcionário: ");
 
                 if (scanner.hasNextLine()) {
